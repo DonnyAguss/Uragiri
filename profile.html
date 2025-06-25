@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uragiri-Profile</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+
+    <!-- Icon -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- navbar  -->
+    <nav class="navbar">
+      <a href="index.html" class="navbar-logo">
+        <img src="img/new folder/logo uragiri.png" alt="Logo Uragiri" />
+      </a>
+
+      <div class="navbar-nav">
+        <a href="products.html">CATALOG</a>
+        <a href="community.html">COMMUNITY</a>
+        <a href="about.html">ABOUT US</a>
+        <a href="contact.html">CONTACT</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="search-button"> <i data-feather="search"></i></a>
+        <a href="#" id="shopping-cart-button"> <i data-feather="shopping-cart"></i></a>
+        <a href="profile.html"> <i data-feather="user"></i></a>
+        <a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
+      </div>
+
+      <!-- search form -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="search here..." />
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+    </nav>
+
+    <!-- navbar end -->
+
+    <!-- isi halaman web -->
+    <div class="profile-card">
+      <h3>INFO PROFIL SAYA</h3>
+
+      <div class="form-group">
+        <label for="nama">Nama</label>
+        <input type="text" id="nama" value="Rafly" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" value="raflyachmads@gmail.com" />
+      </div>
+
+      <div class="form-group">
+        <label for="alamat">Alamat</label>
+        <textarea id="alamat" rows="4" placeholder="Masukkan alamat lengkap..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Ulang Tahun Saya</label>
+        <div class="birthday-selects">
+          <select id="tanggal">
+            <option value="">Tanggal</option>
+          </select>
+          <select id="bulan">
+            <option value="">Bulan</option>
+          </select>
+          <select id="tahun">
+            <option value="">Tahun</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-simpan" onclick="simpanData()">Simpan</button>
+    </div>
+
+    <script>
+      // Isi otomatis Tanggal
+      const tanggalSelect = document.getElementById("tanggal");
+      for (let i = 1; i <= 31; i++) {
+        tanggalSelect.innerHTML += `<option value="${i}">${i}</option>`;
+      }
+
+      // Isi otomatis Bulan
+      const bulanSelect = document.getElementById("bulan");
+      const bulanList = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      bulanList.forEach((bln, i) => {
+        bulanSelect.innerHTML += `<option value="${i + 1}">${bln}</option>`;
+      });
+
+      // Isi otomatis Tahun
+      const tahunSelect = document.getElementById("tahun");
+      for (let th = 1980; th <= 2025; th++) {
+        tahunSelect.innerHTML += `<option value="${th}">${th}</option>`;
+      }
+
+      // Validasi dan aksi tombol Simpan
+      function simpanData() {
+        const nama = document.getElementById("nama").value.trim();
+        const alamat = document.getElementById("alamat").value.trim();
+        const tanggal = tanggalSelect.value;
+        const bulan = bulanSelect.value;
+        const tahun = tahunSelect.value;
+
+        if (!nama || !alamat || !tanggal || !bulan || !tahun) {
+          alert("Mohon lengkapi semua data sebelum menyimpan.");
+        } else {
+          alert(`Data berhasil disimpan!\n\nNama: ${nama}\nAlamat: ${alamat}\nTanggal Lahir: ${tanggal} ${bulan} ${tahun}`);
+          // Di sini kamu bisa lanjut kirim ke server kalau mau
+        }
+      }
+    </script>
+
+    <!--Batas isi-->
+    <footer>
+      <div class="socials">
+        <h3>Our Socials Media</h3>
+        <a href="https://www.instagram.com/uragiri.id/"><i data-feather="instagram"></i>Uragiri.id</a>
+        <a href="https://www.instagram.com/uragiri.id/"><i data-feather="facebook"></i>Uragiri.id</a>
+        <a href="https://www.instagram.com/uragiri.id/"><i data-feather="youtube"></i>Uragiri Studio</a>
+      </div>
+
+      <div class="payment">
+        <h3>Payment Method</h3>
+        <div class="icon-row">
+          <img src="img/icon payment/payment-qris.png" alt="QRIS" />
+          <img src="img/icon payment/payment-akulaku.png" alt="Akulaku" />
+          <img src="img/icon payment/payment-mandiri.png" alt="Mandiri" />
+          <img src="img/icon payment/payment-bri.png" alt="BRI" />
+          <img src="img/icon payment/payment-danamon.png" alt="Danamon" />
+          <img src="img/icon payment/payment-bsi.png"BSI">
+          <img src="img/icon payment/payment-cimbniaga.png.png" alt="CIMB Niaga" />
+        </div>
+      </div>
+
+      <div class="credit">
+        <p>Created by <a href="">Donny & Rafly & Nanda</a> | &copy; 2025</p>
+      </div>
+    </footer>
+
+    <!-- Icon -->
+    <script>
+      feather.replace();
+    </script>
+
+    <!-- Js -->
+    <script src="js/script.js"></script>
+  </body>
+</html>

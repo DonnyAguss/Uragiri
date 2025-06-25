@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uragiri-Products</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+
+    <!-- Icon -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- alpine js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- app -->
+    <script src="src/app.js"></script>
+  </head>
+  <body>
+    <!-- navbar  -->
+    <nav class="navbar" x-data>
+      <a href="index.html" class="navbar-logo">
+        <img src="img/new folder/logo uragiri.png" alt="Logo Uragiri" />
+      </a>
+      <div class="navbar-nav">
+        <a href="products.html">CATALOG</a>
+        <a href="community.html">COMMUNITY</a>
+        <a href="about.html">ABOUT US</a>
+        <a href="contact.html">CONTACT</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <a href="#" id="shopping-cart-button"
+          ><i data-feather="shopping-cart"></i>
+          <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+        </a>
+        <a href="profile.html"> <i data-feather="user"></i></a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+
+      <!-- search form -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="search here..." />
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+      <!-- shoping card -->
+      <div class="shopping-cart">
+        <template x-for="(item, index) in $store.cart.items" x-key="index">
+          <div class="cart-item">
+            <img :src="`img/product/${item.img}`" :alt="item.name" />
+            <div class="item-detail">
+              <h3 x-text="item.name"></h3>
+              <div class="item-price">
+                <span x-text="rupiah(item.price)"></span> &times;
+                <button id="remove" @click="$store.cart.remove( item.id)">&minus;</button>
+                <span x-text="item.quantity"></span>
+                <button id="add" @click="$store.cart.add(item)">&plus;</button>&equals;
+                <span x-text="item.total"></span>
+              </div>
+            </div>
+          </div>
+        </template>
+        <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem">Cart Is Empty</h4>
+        <h4 x-show="$store.cart.items.length">Total: <span x-text="$store.cart.total"></span></h4>
+
+        <div class="form-container" x-show="$store.cart.items.length">
+          <form action="" id="checkoutForm">
+            <h5>Customer Detail</h5>
+
+            <label for="name">
+              <span>Name</span>
+              <input type="text " name="name" id="name" />
+            </label>
+
+            <label for="email">
+              <span>Email</span>
+              <input type="email " name="email" id="email" />
+            </label>
+
+            <label for="phone">
+              <span>Phone</span>
+              <input type="number" name="phone" id="phone" autocomplete="off" />
+            </label>
+
+            <button class="checkout-button" type="submit" id="checkout-button" value="checkout">Checkout</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- navbar end -->
+
+    <!-- isi halaman web -->
+    <section class="products" id="products" x-data="products">
+      <h1>Our Collection</h1>
+      <p>we come from the streets, music, and local stories More than just style it's about identity we create for those who don't want to be the same.</p>
+
+      <div class="row" x-init="$nextTick(() => feather.replace())">
+        <template x-for="(item, index) in items" x-key="index">
+          <div class="product-card">
+            <div class="product-icons">
+              <a href="#" @click.prevent="$store.cart.add(item)"><i data-feather="shopping-cart"></i></a>
+              <a href="#" class="item-detail-button" :data-image="`img/product/${item.img}`" :data-title="item.name" :data-price="item.price" :data-desc="item.desc">
+                <i data-feather="eye"></i>
+              </a>
+            </div>
+            <div class="product-image">
+              <img :src="`img/product/${item.img}`" :alt="item.name" />
+            </div>
+            <div class="product-content">
+              <h3 x-text="item.name"></h3>
+              <div class="product-stars">
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star"></i>
+                <i data-feather="star"></i>
+              </div>
+              <div class="product-price" x-text="rupiah(item.price)"></div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+
+    <footer>
+      <div class="socials">
+        <h3>Our Socials Media</h3>
+        <a href="https://www.instagram.com/uragiri.id/"><i data-feather="instagram"></i>Uragiri.id</a>
+        <a href="https://www.instagram.com/uragiri.id/"><i data-feather="facebook"></i>Uragiri.id</a>
+        <a href="https://www.instagram.com/uragiri.id/"><i data-feather="youtube"></i>Uragiri Studio</a>
+      </div>
+
+      <div class="payment">
+        <h3>Payment Method</h3>
+        <div class="icon-row">
+          <img src="img/icon payment/payment-qris.png" alt="QRIS" />
+          <img src="img/icon payment/payment-akulaku.png" alt="Akulaku" />
+          <img src="img/icon payment/payment-mandiri.png" alt="Mandiri" />
+          <img src="img/icon payment/payment-bri.png" alt="BRI" />
+          <img src="img/icon payment/payment-danamon.png" alt="Danamon" />
+          <img src="img/icon payment/payment-bsi.png"BSI">
+          <img src="img/icon payment/payment-cimbniaga.png.png" alt="CIMB Niaga" />
+        </div>
+      </div>
+
+      <div class="credit">
+        <p>Created by <a href="">Donny & Rafly & Nanda</a> | &copy; 2025</p>
+      </div>
+    </footer>
+
+    <!-- box item -->
+    <div class="modal" id="item-detail-modal">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="" alt="" />
+          <div class="product-content">
+            <h3></h3>
+            <p></p>
+
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="product-price">Rp 499,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Icon -->
+    <script>
+      feather.replace();
+    </script>
+
+    <!-- Js -->
+    <script src="js/script.js"></script>
+
+    <script>
+      document.addEventListener("alpine:init", () => {
+        Alpine.effect(() => {
+          setTimeout(() => {
+            const itemDetailModal = document.querySelector("#item-detail-modal");
+            const closeIcon = document.querySelector(".close-icon");
+            const modalImg = itemDetailModal.querySelector(".modal-content img");
+            const modalTitle = itemDetailModal.querySelector(".modal-content h3");
+            const modalPrice = itemDetailModal.querySelector(".modal-content .product-price");
+            const modalDesc = itemDetailModal.querySelector(".modal-content p");
+
+            document.querySelectorAll(".item-detail-button").forEach((btn) => {
+              btn.onclick = function (e) {
+                modalImg.src = btn.getAttribute("data-image");
+                modalTitle.textContent = btn.getAttribute("data-title");
+                modalPrice.textContent = btn.getAttribute("data-price");
+                modalDesc.textContent = btn.getAttribute("data-desc");
+                itemDetailModal.style.display = "flex";
+                e.preventDefault();
+              };
+            });
+
+            if (closeIcon) {
+              closeIcon.onclick = function (e) {
+                itemDetailModal.style.display = "none";
+                e.preventDefault();
+              };
+            }
+
+            itemDetailModal.onclick = function (e) {
+              if (e.target === itemDetailModal) {
+                itemDetailModal.style.display = "none";
+              }
+            };
+          }, 0);
+        });
+      });
+    </script>
+  </body>
+</html>
